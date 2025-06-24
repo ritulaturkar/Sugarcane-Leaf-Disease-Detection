@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugarcane Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light blue background */
+            margin: 0;
+            padding: 20px;
+        }
+        nav {
+            background-color: #29b6f6; /* Light blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .button-group button {
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button-group button.active,
+        .button-group button:hover {
+            background-color: #0288d1;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav>Sugarcane Disease Detection</nav>
+
+    <div class="button-group">
+        <button id="detectionBtn" class="active">Disease Detection</button>
+        <button id="aboutBtn">About</button>
+    </div>
+
+    <div id="content" class="content">
+        <h2>Disease Detection</h2>
+        <p>
+            Our disease detection system uses machine learning algorithms to detect diseases in sugarcane plants. 
+            Simply upload an image of the affected plant, and our system will provide whether the leaf is healthy, dried, or diseased.
+        </p>
+        <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+
+    <script>
+        const detectionContent = `
+          <h2>Disease Detection</h2>
+          <p>Our disease detection system uses machine learning algorithms to detect diseases in sugarcane plants. 
+          Simply upload an image of the affected plant, and our system will provide a diagnosis.</p>
+          <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <input type="submit" value="Predict">
+          </form>
+        `;
+
+        const aboutContent = `
+          <h2>About Sugarcane Disease Detection</h2>
+          <p>Sugarcane disease detection is a critical aspect of sugarcane cultivation. Early detection of diseases can help prevent the spread of disease and reduce crop losses.</p>
+          
+          <h3>Project Guide:</h3>
+          <ul>
+            <li><strong>Dr.Anil Devangavi</strong> - Department of Artificial intelligence and machine learning</li>
+          </ul>
+
+          <h3>Team Members:</h3>
+          <ul>
+            <li><strong>[Rahulgouda]</strong> - USN(2BA21AI032)</li>
+            <li><strong>[Shashank]</strong> - USN(2BA21AI042)</li>
+            <li><strong>[Reetu]</strong> - USN(2BA21AI035)</li>
+            <li><strong>[Akanksha]</strong> - USN(2BA21AI011)</li>
+            <!-- Add more team members if necessary -->
+          </ul>
+        `;
+
+        document.getElementById('detectionBtn').addEventListener('click', () => {
+            document.getElementById('content').innerHTML = detectionContent;
+            setActiveButton('detectionBtn');
+        });
+
+        document.getElementById('aboutBtn').addEventListener('click', () => {
+            document.getElementById('content').innerHTML = aboutContent;
+            setActiveButton('aboutBtn');
+        });
+
+        function setActiveButton(activeId) {
+            document.querySelectorAll('.button-group button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(activeId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
